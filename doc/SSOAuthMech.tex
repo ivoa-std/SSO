@@ -12,17 +12,15 @@
 \ivoagroup{http://www.ivoa.net/twiki/bin/view/IVOA/IvoaGridAndWebServices}
 
 %\author[????URL????]{http://www.ivoa.net/twiki/bin/view/IVOA/IvoaGridAndWebServices}
-\author{Grid and Web Services  Working Group}
+\author{Grid and Web Services}
 
 \editor{Guy Rixon, Andre\'e Schaaff, Giuliano Taffoni
 }
 
-\previousversion[http://www.ivoa.net/documents/cover/SSOAuthMech-20080124.html]{http://www.ivoa.net/documents/cover/SSOAuthMech-20080124.html
-http://www.ivoa.net/documents/cover/SSOAuthMech-20070904.html
-http://www.ivoa.net/documents/cover/SSOAuthMech-20070621.html
-http://www.ivoa.net/documents/cover/SSOAuthMech-20060519.html
-}
-%\previousversion{This is the first public release}
+\previousversion[http://www.ivoa.net/documents/cover/SSOAuthMech-20080124.html]{REC-1.0}
+\previousversion[http://www.ivoa.net/documents/cover/SSOAuthMech-20070904.html]{PR-20070904}
+\previousversion[http://www.ivoa.net/documents/cover/SSOAuthMech-20070621.html]{PR-20070621}
+\previousversion[http://www.ivoa.net/documents/cover/SSOAuthMech-20060519.html]{WD-20060519}
        
 
 \begin{document}
@@ -78,8 +76,14 @@ IVOA architecture \citep{note:VOARCH}.
 \section{Scope of this standard}
 \subsection{Requirements}
 When a service is registered in an IVOA registry, that services resource document may include metadata expressing conformance to one or more of the authentication mechanisms approved in the IVOA SSO profile. Such a service must implement those mechanisms as described in this document, and clients of the service must participate in the mechanism when calling the service. Is a service does not provide any SSO specification it is assumed that no authentication is required.
-The registration of the service interface shall contain an XML element of type {\xmlel SecurityMethod} as specified in the XML schema for VOResource [VOResource]. The value of this element distinguished the authentication mechanism using the values stated in the sections below.
-Services registered without the metadata alluded to above need not support any authentication mechanism. If they do require authentication, they may use either the IVOA-standard mechanisms or others that are not IVOA standards.
+The registration of the service interface shall contain an XML element
+of type {\xmlel SecurityMethod} as specified in the XML schema for
+VOResource \citep{std:VOR}. The value of this element distinguished the
+authentication mechanism using the values stated in the sections below.
+Services registered without the metadata alluded to above need not
+support any authentication mechanism. If they do require authentication,
+they may use either the IVOA-standard mechanisms or others that are not
+IVOA standards.
 
 \subsection{Commentary}
 The IVOA SSO profile allows the development of a ''realm'' of interoperable services and clients. 
@@ -178,11 +182,11 @@ TLS v1.0 was based on SSL v3.0; the actual version of TLS is V1.2 described in b
 TLS v1.2 is back-compatible with TLS v1.0, TLS v1.1 and SSL v3.0. 
 ``TLS versions 1.0, 1.1, and 1.2, and SSL 3.0 are very similar, and use compatible ClientHello messages; 
 thus, supporting all of them is   relatively easy.[...] TLS 1.2 clients that wish to support SSL 2.0 servers MUST 
-send  version 2.0 CLIENT-HELLO messages defined in [SSL2].'' \citep{std:RFC5246}.
+send  version 2.0 CLIENT-HELLO messages defined in SSL2.'' \citep{std:RFC5246}.
 
 \section{Details of TLS-with-client-certificate}
 \subsection{Requirements}
-Certificates shall be transmitted and checked according to the TLS v1.2 standard [RFC5246].
+Certificates shall be transmitted and checked according to the TLS v1.2 standard RFC5246.
 
 Services implementing TLS must support certificate chains including proxy certificates according to RFC6818  \citep{std:RFC6818}.
 
