@@ -77,7 +77,7 @@ IVOA architecture \citep{note:VOARCH}.
 \subsection{Requirements}
 When a service is registered in an IVOA registry, that services resource document may include metadata expressing conformance to one or more of the authentication mechanisms approved in the IVOA SSO profile. Such a service must implement those mechanisms as described in this document, and clients of the service must participate in the mechanism when calling the service. Is a service does not provide any SSO specification it is assumed that no authentication is required.
 The registration of the service interface shall contain an XML element
-of type {\xmlel SecurityMethod} as specified in the XML schema for
+of type \xmlel{SecurityMethod} as specified in the XML schema for
 VOResource \citep{std:VOR}. The value of this element distinguished the
 authentication mechanism using the values stated in the sections below.
 Services registered without the metadata alluded to above need not
@@ -91,7 +91,7 @@ Service providers opt in to this realm by implementing this current standard and
 This allows clients to discover a secured service through the registry and to be able to use it without 
 being customized for the details of the specific service.
 
-Parts of the IVOA that are not intended to be widely interoperable need not opt in to the SSO realm. 
+Services within the Virtual Observatory that are not intended to be widely interoperable need not opt in to the SSO realm. 
 In particular, ''private'' services, accessed by web browsers and protected by passwords, are allowed. 
 However, these private services should be reworked to follow the IVOA standard if they are later promoted to a wider audience.
 
@@ -115,7 +115,7 @@ More than one {\xmlel securityMethod} can be specified:
 </interface> 
 \end{lstlisting}
 
-The order identify the priority of the method to use, in the example above the preferred method to access 
+The order of the \xmlel{securityMethod} elements determines the priority of the method to use, in the example above the preferred method to access 
 the service is {\em SAML}, than {cookies} and finally if the other are not available OpenID.
 
 \section{Approved authentication mechanisms}
@@ -178,8 +178,8 @@ Services using Transport Layer Security (TLS) shall do so according to the TLS v
 
 \subsection{Commentary}
 TLS supersedes the Secure Sockets Layer that is an outdated cryptographic protocol.   
-TLS v1.0 was based on SSL v3.0; the actual version of TLS is V1.2 described in by \citet{std:RFC5246}.  
-TLS v1.2 is back-compatible with TLS v1.0, TLS v1.1 and SSL v3.0. 
+TLS v1.0 was based on SSL v3.0; the current version of TLS is V1.2 described in by \citet{std:RFC5246}.  
+TLS v1.2 is backwards compatible with TLS v1.0, TLS v1.1 and SSL v3.0. 
 ``TLS versions 1.0, 1.1, and 1.2, and SSL 3.0 are very similar, and use compatible ClientHello messages; 
 thus, supporting all of them is   relatively easy.[...] TLS 1.2 clients that wish to support SSL 2.0 servers MUST 
 send  version 2.0 CLIENT-HELLO messages defined in SSL2.'' \citep{std:RFC5246}.
