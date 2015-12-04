@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+<!-- The resource record for SSOAuthMech intended to be uploaded into the
+RofR; please fix @updated  and data[@representative] after REC publication -->
+<ri:Resource 
+	xsi:type="vstd:Standard" 
+	created="2015-12-04T11:39:00" 
+	updated="2015-12-04T11:39:00" 
+	status="active"
+	xmlns:vr="http://www.ivoa.net/xml/VOResource/v1.0" 
+	xmlns:vstd="http://www.ivoa.net/xml/StandardsRegExt/v1.0" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:ri="http://www.ivoa.net/xml/RegistryInterface/v1.0"
+	xsi:schemaLocation="http://www.ivoa.net/xml/VOResource/v1.0
+		http://www.ivoa.net/xml/VOResource/v1.0
+	http://www.ivoa.net/xml/StandardsRegExt/v1.0
+		http://www.ivoa.net/xml/StandardsRegExt/v1.0
+	http://www.ivoa.net/xml/VOResource/v1.0
+		http://www.ivoa.net/xml/VOResource/v1.0">
+
+  <title>IVOA Single-Sign-On Profile: Authentication Mechanisms</title>
+  <identifier>ivo://ivoa.net/std/SSOAuthMech</identifier>
+  <curation>
+    <publisher>IVOA</publisher>
+    <creator>
+      <name>IVOA Grid And Web Services WG</name>
+      <logo>http://www.ivoa.net/icons/ivoa_logo_small.jpg</logo>
+    </creator>
+    <date role="representative">2016-01-01</date>
+    <version>1.0</version>
+    <contact>
+      <name>IVOA GWS WG</name>
+      <email>grid@ivoa.net</email>
+    </contact>
+  </curation>
+  <content>
+    <subject>virtual observatory</subject>
+    <description>
+			IVOA single-sign-on profile: No Authentication; HTTP Basic Authenti-
+			cation; TLS with passwords; TLS with client certificates; Cookies; Open
+			Authentication; Security Assertion Markup Language; OpenID. Normative
+			rules are given for the implementation of these mechanisms, mainly by
+			ref- erence to pre-existing standards. The Authorization mechanisms are
+			out of the scope of this document.
+    </description>
+    <referenceURL>http://www.ivoa.net/Documents/SSOAuthMech</referenceURL>
+  </content>
+  <endorsedVersion status="rec">2.0</endorsedVersion>
+
+  <key>
+    <name>tls-with-password</name>
+    <description>
+		Service supports authentication with a password transmitted through TLS 
+		as per section 7 of the Recommendation.
+		</description>
+  </key>
+  <key>
+    <name>tls-with-certificate</name>
+    <description>
+		Service supports authentication with a client-side X.509 certificate
+		as per section 6 of the Recommendation.
+		</description>
+  </key>
+  <key>
+    <name>cookie</name>
+    <description>
+		Service supports authentication with RFC 6265-type cookies
+		as per section 8 of the Recommendation.
+		</description>
+  </key>
+  <key>
+    <name>saml2.0</name>
+    <description>
+		Service supports authentication via SAML (most likely, "Shibboleth")
+		as per section 9 of the Recommendation.
+		</description>
+  </key>
+  <key>
+    <name>OAuth</name>
+    <description>
+		Service supports authentication via Open Authentication 2.0 ("OAuth")
+		as per section 10 of the Recommendation.
+		</description>
+  </key>
+  <key>
+    <name>OpenID</name>
+    <description>
+		Service supports authentication via OpenID
+		as per section 11 of the Recommendation.
+		</description>
+  </key>
+
+</ri:Resource>
