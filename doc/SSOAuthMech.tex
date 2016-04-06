@@ -12,10 +12,9 @@
 \ivoagroup{http://www.ivoa.net/twiki/bin/view/IVOA/IvoaGridAndWebServices}
 
 %\author[????URL????]{http://www.ivoa.net/twiki/bin/view/IVOA/IvoaGridAndWebServices}
-\author{Grid and Web Services}
+\author{Brian Majour, Guy Rixon, Andre\`e Schaaff, Giuliano Taffoni}
 
-\editor{Guy Rixon, Andre\'e Schaaff, Giuliano Taffoni
-}
+\editor{Giuliano Taffoni}
 
 \previousversion[http://www.ivoa.net/documents/cover/SSOAuthMech-20080124.html]{REC-1.0}
 \previousversion[http://www.ivoa.net/documents/cover/SSOAuthMech-20070904.html]{PR-20070904}
@@ -50,7 +49,7 @@ infrastructure that enable VO applications.
 
 
 \section{Introduction}
-IVOA's single-sign-on architecture is a system in which users assign cryptographic credentials to user agents so that the agents may act with the user?s identity and access rights. This standard describes how agents use those credentials to authenticate the user's identity in requests to services. This standard describes also the authentication mechanism of an application or a service making a call (on behalf of someone or something else) to an API or to another service
+IVOA's single-sign-on architecture is a system in which users assign cryptographic credentials to user agents so that the agents may act with the user's identity and access rights. This standard describes how agents use those credentials to authenticate the user's identity in requests to services. This standard describes also the authentication mechanism of an application or a service making a call (on behalf of someone or something else) to an API or to another service
 This document is essentially a {\em profile} against existing security standards; that is, it describes how an existing standard should be applied in an IVOA application to support single sign-on capabilities in the IVOA. In the following sections, we make specific references to details spelled out in these standards. For the purposes of validating against this standard, those referenced documents should be consulted for a full explanation of those details. Unfortunately, a reader that is unfamiliar with these external standards might find this specification confusing. To alleviate this problem, each major section is concluded by a Commentary subsection that provides some explanations of the detailed terms and concepts being referred to. The Commentary subsection may also provide recommended scenarios for how this specification might actually be realised. Note that the statements in the Commentary subsections are non-normative and should not be considered part of precise specification; nevertheless, they are indicative of the intended spirit of this document.
 
 \subsection{Role within the VO Architecture}
@@ -75,14 +74,14 @@ IVOA architecture \citep{note:VOARCH}.
 
 \section{Scope of this standard}
 \subsection{Requirements}
-When a service is registered in an IVOA registry, that services resource document may include metadata expressing conformance to one or more of the authentication mechanisms approved in the IVOA SSO profile. Such a service must implement those mechanisms as described in this document, and clients of the service must participate in the mechanism when calling the service. Is a service does not provide any SSO specification it is assumed that no authentication is required.
-The registration of the service interface shall contain an XML element
+When a service is registered in an IVOA registry, that services resource document MAY include metadata expressing conformance to one or more of the authentication mechanisms approved in the IVOA SSO profile. Such a service MUST implement those mechanisms as described in this document, and clients of the service MUST participate in the mechanism when calling the service. Is a service does not provide any SSO specification it is assumed that no authentication is required.
+The registration of the service interface SHALL contain an XML element
 of type \xmlel{SecurityMethod} as specified in the XML schema for
 VOResource \citep{std:VOR}. The value of this element distinguished the
 authentication mechanism using the values stated in the sections below.
 Services registered without the metadata alluded to above need not
 support any authentication mechanism. If they do require authentication,
-they may use either the IVOA-standard mechanisms or others that are not
+they MAY use either the IVOA-standard mechanisms or others that are not
 IVOA standards.
 
 \subsection{Commentary}
@@ -119,7 +118,7 @@ The order of the \xmlel{securityMethod} elements determines the priority of the 
 the service is {\em SAML}, than {cookies} and finally if the other are not available OpenID.
 
 \section{Approved authentication mechanisms}
-\subsection{Requirements}
+
 The following authentication mechanisms are approved for use in the SSO profile.
 \begin{itemize}
 \item No authentication required.
@@ -134,7 +133,7 @@ The following authentication mechanisms are approved for use in the SSO profile.
 
 The mechanism is associated with the interface provided by the service and registered in the IVOA registry.
  
-\begin{table}[thm] \begin{tabular}{p{0.45\textwidth}p{0.64\textwidth}} \sptablerule
+\begin{table}[th] \begin{tabular}{p{0.45\textwidth}p{0.64\textwidth}} \sptablerule
 \textbf{SSO mechanism}&\textbf{\xmlel{<securityMethod>}}\\ \sptablerule
 No authentication required & none\\
  HTTP Basic Authentication &
@@ -152,16 +151,16 @@ OpenID &  \xmlel{ivo://ivoa.net/sso\#OpenID} \\
 \end{table}
 
 Services that are registered with a IVOA registry as having a {em WebService} type interface 
-\citep{ivo:resource} shall support OAuth, or shall support cookies or shall support TLS with client 
-certificates or shall require no authentication.
-Interfaces by which a user logs in to the SSO system shall support either 
+\citep{ivo:resource} SHALL support OAuth, or SHALL support cookies or SHALL support TLS with client 
+certificates or SHALL require no authentication.
+Interfaces by which a user logs in to the SSO system SHALL support either 
 TLS with client certificates, or TLS with passwords, or SAML or a combination of the them
 
 \section{HTTP Basic Authentication}
 \subsection{Requirements}
-Services using HTTP basic authentication shall use the authentication mechanism described in the RFC7235 \citep{std:RFC7235}
+Services using HTTP basic authentication SHALL use the authentication mechanism described in the RFC7235 \citep{std:RFC7235}
 that updates RFC2617  \citep{std:RFC2617}. 
-Interfaces using this mechanism shall be be registered with the security method 
+Interfaces using this mechanism SHALL be be registered with the security method 
 
  \texttt{http://www.w3.org/Protocols/HTTP/1.0/spec/html\#BasicAA}
 
@@ -174,7 +173,7 @@ confidential transmission of   header fields. Connection secured with TLS are re
 
 \section{Details of TLS}
 \subsection{Requirements}
-Services using Transport Layer Security (TLS) shall do so according to the TLS v1.2 standard RFC5246 \citep{std:RFC5246}.
+Services using Transport Layer Security (TLS) SHALL do so according to the TLS v1.2 standard RFC5246 \citep{std:RFC5246}.
 
 \subsection{Commentary}
 TLS supersedes the Secure Sockets Layer that is an outdated cryptographic protocol.   
@@ -186,11 +185,11 @@ send  version 2.0 CLIENT-HELLO messages defined in SSL2.'' \citep{std:RFC5246}.
 
 \section{Details of TLS-with-client-certificate}
 \subsection{Requirements}
-Certificates shall be transmitted and checked according to the TLS v1.2 standard RFC5246.
+Certificates SHALL be transmitted and checked according to the TLS v1.2 standard RFC5246.
 
-Services implementing TLS must support certificate chains including proxy certificates according to RFC6818  \citep{std:RFC6818}.
+Services implementing TLS MUST support certificate chains including proxy certificates according to RFC6818  \citep{std:RFC6818}.
 
-Interfaces using this mechanism shall be be registered with the security method \texttt{ivo://ivoa.net/sso\#tls-with-client-certificate}.
+Interfaces using this mechanism SHALL be be registered with the security method \texttt{ivo://ivoa.net/sso\#tls-with-client-certificate}.
 
 \subsection{Commentary}
 When Mutual Certificate Authentication is configured for REST services, both, the client and the service perform 
@@ -200,10 +199,10 @@ The client authenticates the service during the initial SSL handshake, when the 
 
 \section{Details of TLS-with-password}
 \subsection{Requirements}
-The user-name and password shall be passed in the message protected by the TLS mechanism, 
+The user-name and password SHALL be passed in the message protected by the TLS mechanism, 
 not as part of the mechanism itself. The ``HTTP basic authentication'' should be used with particular attention.
 
-Interfaces using this mechanism shall be be registered with the security method \texttt{ivo://ivoa.net/sso\#tls-with-password}.
+Interfaces using this mechanism SHALL be be registered with the security method \texttt{ivo://ivoa.net/sso\#tls-with-password}.
 
 \subsection{Commentary}
 ``HTTP basic authentication'' passes the user-name and password in the HTTP headers, 
@@ -230,7 +229,7 @@ as this can be captured in web server logs, which makes them intrinsically valua
 
 \section{Details on SAML authentication}
 \subsection{Requirements}
-Services using SAML authentication mechanisms shall shall do so according to the 
+Services using SAML authentication mechanisms SHALL do so according to the 
 saml-core-2.0-os OASIS standard \citep{std:SAML}. 
 SAML includes protocols and protocol bindings and security \citep{std:SAMLB}.
 
@@ -258,7 +257,7 @@ SAML2.0 allow also to service discovery mechanisms
 
 \section{Details on OAuth}
 \subsection{Requirements}
-Services using OAuth authentication mechanisms shall do so according to the RFC6749 \citep{std:RFC6742}.
+Services using OAuth authentication mechanisms SHALL do so according to the RFC6749 \citep{std:RFC6742}.
 
 \subsection{Commentary}
 Open Authentication 2.0 (also in conjunction with OpenID Connect) is actually the adopted standard 
@@ -273,7 +272,7 @@ OAuth is related to delegate credential from an application to another.
 
 \section{Details on OpenID}
 \subsection{Requirements}
-Services using OpenID authentication mechanisms shall do so according to the OpenID Foundation standards \citep{std:openid}
+Services using OpenID authentication mechanisms SHALL do so according to the OpenID Foundation standards \citep{std:openid}
   
 \subsection{Commentary}
 OpenID is an open and decentralized authentication and identity system. OpenID relying parties do not manage end user credentials 
@@ -283,7 +282,11 @@ layer on top of the OAuth 2.0 protocol, which allows computing clients to verify
  performed by an authorization server, as well as to obtain basic profile information about the end-user in an interoperable and REST-like manner.'' \citep{std:openid}.
   
 \appendix 
-\section{VOResource  SecurityMethod extract}
+\section{VOResource  SecurityMethod}
+This Appendix presents an extract of the VOResource Description XML schema.
+Here we present the part of the schema regarding the   \xmlel{SecurityMethod} element 
+to facilitate the reader identify the relevant schema sections in the VOResource Description. 
+
 
 \begin{lstlisting}[language=xml,basicstyle=\footnotesize]
 <xs:schema xmlns="http://www.w3.org/2001/XMLSchema" 
@@ -319,44 +322,41 @@ elementFormDefault="unqualified" attributeFormDefault="unqualified" version="1.0
 <xs:complexType name="Interface" abstract="true">
 <xs:annotation>...</xs:annotation>
 <xs:sequence>
-<xs:element name="accessURL" type="vr:AccessURL" 
+   <xs:element name="accessURL" type="vr:AccessURL" 
 		minOccurs="1" maxOccurs="unbounded">...</xs:element>
-<xs:element name="securityMethod" type="vr:SecurityMethod" 
+   <xs:element name="securityMethod" type="vr:SecurityMethod" 
 		minOccurs="0" maxOccurs="unbounded">
-<xs:annotation>
-<xs:documentation>
-the mechanism the client must employ to gain secure access to the service.
-</xs:documentation>
-<xs:documentation>
-when more than one method is listed, each one must be employed to gain access.
-</xs:documentation>
-</xs:annotation>
-</xs:element>
+      <xs:annotation>
+          <xs:documentation> the mechanism the client must employ to 
+                                           gain secure access to the service.
+         </xs:documentation>
+          <xs:documentation> when more than one method is listed, each one 
+                                           must be employed to gain access. 
+         </xs:documentation>
+      </xs:annotation>
+    </xs:element>
 </xs:sequence>
 <xs:attribute name="version" type="xs:string" default="1.0">...</xs:attribute>
 <xs:attribute name="role" type="xs:NMTOKEN">...</xs:attribute>
 </xs:complexType>
 <xs:complexType name="AccessURL">...</xs:complexType>
 <xs:complexType name="SecurityMethod">
-<xs:annotation>
-<xs:documentation>a description of a security mechanism.</xs:documentation>
-<xs:documentation>
-this type only allows one to refer to the mechanism via a URI. 
-Derived types would allow for more metadata.
-</xs:documentation>
-</xs:annotation>
+   <xs:annotation>
+      <xs:documentation>a description of a security mechanism.</xs:documentation>
+      <xs:documentation> this type only allows one to refer to the mechanism via a URI.  
+                                       Derived types would allow for more metadata.
+     </xs:documentation>
+   </xs:annotation>
 <xs:sequence/>
 <xs:attribute name="standardID" type="xs:anyURI">
-<xs:annotation>
-<xs:documentation>
-A URI identifier for a standard security mechanism.
-</xs:documentation>
-<xs:documentation>
-This provides a unique way to refer to a security specification standard. 
-The use of an IVOA identifier here implies that a VOResource 
-description of the standard is registered and accessible.
-</xs:documentation>
-</xs:annotation>
+   <xs:annotation>
+      <xs:documentation> A URI identifier for a standard security mechanism. </xs:documentation>
+      <xs:documentation>
+            This provides a unique way to refer to a security specification standard. 
+            The use of an IVOA identifier here implies that a VOResource 
+            description of the standard is registered and accessible.
+      </xs:documentation>
+   </xs:annotation>
 </xs:attribute>
 </xs:complexType>
 <xs:complexType name="WebBrowser">...</xs:complexType>
