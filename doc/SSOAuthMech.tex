@@ -137,7 +137,7 @@ The mechanism is associated with the interface provided by the service and regis
 \textbf{SSO mechanism}&\textbf{\xmlel{<securityMethod>}}\\ \sptablerule
 No authentication required & none\\
  HTTP Basic Authentication &
-\xmlel{https://www.w3.org/Protocols/HTTP/ 1.0/spec/html\#BasicAA}\\
+\xmlel{https://www.w3.org/Protocols/HTTP/ 1.0/spec.html\#BasicAA}\\
 TLS with password &  \xmlel{ivo://ivoa.net/sso\#tls-with-password} \\
 TLS with client certificate & \xmlel{ivo://ivoa.net/sso\#tls-with-certificate} \\
 Cookies & \xmlel{ivo://ivoa.net/sso\#cookie} \\
@@ -162,7 +162,7 @@ Services using HTTP basic authentication SHALL use the authentication mechanism 
 that updates RFC2617  \citep{std:RFC2617}. 
 Interfaces using this mechanism SHALL be be registered with the security method 
 
- \texttt{https://www.w3.org/Protocols/HTTP/1.0/spec/html\#BasicAA}
+ \texttt{https://www.w3.org/Protocols/HTTP/1.0/spec.html\#BasicAA}
 
 \subsection{Commentary}
 HTTP provides a simple challenge-response authentication framework that can be used by a server to challenge 
@@ -306,6 +306,31 @@ In a RESTful environment OpenID Connect \citep{std:openidconnect} is commonly ad
 layer on top of the OAuth 2.0 protocol, which allows computing clients to verify the identity of an end-user based on the authentication
  performed by an authorization server, as well as to obtain basic profile information about the end-user in an interoperable and REST-like manner.'' \citep{std:openid}.
   
+\section{Conclusions}
+This document presents a list of  existing security standards, to implement when developing a service that requires authentication mechanism. The list includes the most frequently used standards at the time this document has been produced. 
+
+In this document we are presenting two types of  SSO protocols: "local" and "federated". 
+Local SSO  provides solutions for keeping a repository of usernames and passwords 
+that could be used transparently across several internal applications but it is local to one domain/service.
+
+Federated identity means linking and using the electronic identities a user has across several identity management systems.
+In simpler terms, a service does not necessarily need to obtain and store users? credentials in order to authenticate them. Instead, the service (or we application) can use an identity management system that is already storing a user?s electronic identity 
+to authenticate the user?given, of course, that the application trusts that identity management system.
+Federated identities are convenient for users, since they don?t have to keep a set of usernames and passwords for every single application that they use and for service providers that do not need to store and manage credential.
+
+Local SSO is managed by  the following protocols: HTTP Basic Authentication,  Transport Layer Security (TLS) with passwords, and cookies
+OAuth, SAML, OpenID and Transport Layer Security (TLS) with client certificates (thanks to the CA trust) are protocol that 
+allow to implement  federated SSO. 
+
+The choice the authentication method to use is related to the project/service requirements, we suggest at least to implement 
+a local authentication based on Transport Layer Security (TLS) with passwords, that allow a reasonable security 
+framework for exchanging authentication tokens. 
+
+More complex projects/sevices that needs to offer resources to a large distributed communities should prefer federated identities. 
+For example SAML2.0 is the protocol used to build the EduGain World wide identity federation  for education and research.
+
+
+
 \appendix 
 \section{VOResource  SecurityMethod}
 This Appendix presents an extract of the VOResource Description XML schema.
