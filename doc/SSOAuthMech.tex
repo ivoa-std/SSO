@@ -12,10 +12,7 @@
 \ivoagroup{http://www.ivoa.net/twiki/bin/view/IVOA/IvoaGridAndWebServices}
 
 %\author[????URL????]{http://www.ivoa.net/twiki/bin/view/IVOA/IvoaGridAndWebServices}
-\author{Brian Major}
-\author{Guy Rixon}
-\author{Andr\`e Schaaff}
-\author{Giuliano Taffoni}
+\author{Brian Major, Guy Rixon, Andr\`e Schaaff, Giuliano Taffoni}
 
 \editor{Giuliano Taffoni}
 
@@ -77,7 +74,7 @@ IVOA architecture \citep{note:VOARCH}.
 
 \section{Scope of this standard}
 \subsection{Requirements}
-When a service is registered in an IVOA registry, that services resource document MAY include metadata expressing conformance to one or more of the authentication mechanisms approved in the IVOA SSO profile. Such a service MUST implement those mechanisms as described in this document, and clients of the service MUST participate in the mechanism when calling the service. Is a service does not provide any SSO specification it is assumed that no authentication is required.
+When a service is registered in an IVOA registry, that service's resource document MAY include metadata expressing conformance to one or more of the authentication mechanisms approved in the IVOA SSO profile. Such a service MUST implement those mechanisms as described in this document, and clients of the service MUST participate in the mechanism when calling the service. If a service does not provide any SSO specification it is assumed that no authentication is required.
 The registration of the service interface SHALL contain an XML element
 of type \xmlel{SecurityMethod} as specified in the XML schema for
 VOResource \citep{std:VOR}. The value of this element distinguishes the
@@ -106,7 +103,7 @@ An example of a registration for a secured interface follows.
 </interface> 
 \end{lstlisting}
 
-More than one {\xmlel securityMethod} can be specified:
+More than one \xmlel{securityMethod} can be specified:
 \begin{lstlisting}[language=XML]
 <interface xmlns:vs='ivo://www.ivoa.net/xml/VODataService/v1.0'  
 	xsi:type='vs:ParamHTTP'>
@@ -118,7 +115,7 @@ More than one {\xmlel securityMethod} can be specified:
 \end{lstlisting}
 
 The order of the \xmlel{securityMethod} elements determines the priority of the method to use, in the example above the preferred method to access 
-the service is {\em SAML}, than {\em cookies} and finally if the other are not available OpenID.
+the service is {\em SAML}, than {\em cookies} and finally, if the other are not available OpenID.
 
 \section{Approved authentication mechanisms}
 
@@ -138,9 +135,9 @@ The mechanism is associated with the interface provided by the service and regis
  
 \begin{table}[th] \begin{tabular}{p{0.45\textwidth}p{0.64\textwidth}} \sptablerule
 \textbf{SSO mechanism}&\textbf{\xmlel{<securityMethod>}}\\ \sptablerule
-No authentication required & none\\
+No authentication required & \xmlel{ivo://ivoa.net/sso\#anonymous}\\
  HTTP Basic Authentication &
-\xmlel{https://www.w3.org/Protocols/HTTP/ 1.0/spec.html\#BasicAA}\\
+\xmlel{ivo://ivoa.net/sso\#BasicAA}\\
 TLS with password &  \xmlel{ivo://ivoa.net/sso\#tls-with-password} \\
 TLS with client certificate & \xmlel{ivo://ivoa.net/sso\#tls-with-certificate} \\
 Cookies & \xmlel{ivo://ivoa.net/sso\#cookie} \\
@@ -148,9 +145,9 @@ Open Authentication & \xmlel{ivo://ivoa.net/sso\#OAuth} \\
 SAML &  \xmlel{ivo://ivoa.net/sso\#saml2.0} \\
 OpenID &  \xmlel{ivo://ivoa.net/sso\#OpenID} \\
 \sptablerule
-\caption{List of approved authentication mechanisms and the corresponding securityMethod}
 \label{table:SMtable}
 \end{tabular}
+\caption{List of approved authentication mechanisms and the corresponding securityMethod}
 \end{table}
 
 Services that are registered with a IVOA registry as having a {\em WebService} type interface 
@@ -165,7 +162,7 @@ Services using HTTP basic authentication SHALL use the authentication mechanism 
 that updates RFC2617  \citep{std:RFC2617}. 
 Interfaces using this mechanism SHALL be be registered with the security method 
 
- \texttt{https://www.w3.org/Protocols/HTTP/1.0/spec.html\#BasicAA}
+ \texttt{ivo://ivoa.net/sso\#BasicAA}
 
 \subsection{Commentary}
 HTTP provides a simple challenge-response authentication framework that can be used by a server to challenge 
@@ -173,6 +170,10 @@ a client request and by a   client to provide authentication information.
 The HTTP authentication framework does not define a single mechanism for maintaining the confidentiality of credentials. 
 HTTP depends on the security properties of the underlying transport-   or session-level connection to provide 
 confidential transmission of   header fields. Connection secured with TLS are recommended prior to exchanging any credentials.
+
+The ``HTTP basic authentication'' should be used with particular attention as sensible
+informations (password) are sent over the wire in base64 encoding (which can be easily converted to plaintext) exposing
+the user to the possibility her credential to be stolen.
 
 \section{Details of TLS}
 \subsection{Requirements}
@@ -205,7 +206,7 @@ The client authenticates the service during the initial SSL handshake, when the 
 \section{Details of TLS-with-password}
 \subsection{Requirements}
 The user-name and password SHALL be passed in the message protected by the TLS mechanism, 
-not as part of the mechanism itself. The ``HTTP basic authentication'' should be used with particular attention.
+not as part of the mechanism itself. 
 
 Interfaces using this mechanism SHALL be be registered with the security method 
 
@@ -215,7 +216,7 @@ Interfaces using this mechanism SHALL be be registered with the security method
 ``HTTP basic authentication'' passes the user-name and password in the HTTP headers, 
 assuming that the credentials are not a natural part of the message body. 
 This standard applies the TLS-with-Password mechanism only to the special case of logging in to the SSO realm. 
-Hence, the user name and password are logically part of the message body, not the message header.
+Hence, the user-name and password are logically part of the message body, not the message header.
 
 \section{The use of Cookies}
 \subsection{Requirements}
@@ -230,7 +231,7 @@ Interfaces using this mechanism SHALL be be registered with the security method
 \subsection{Commentary}
 RESTful web services should use session-based authentication, either by establishing a session token via a POST or
 by using an API key as a POST body argument or as a cookie. 
-User names, passwords, session tokens, and API keys should not appear in the URL, 
+User-names, passwords, session tokens, and API keys should not appear in the URL, 
 as this can be captured in web server logs, which makes them intrinsically valuable.
 \begin{figure}
 \centering
@@ -270,12 +271,12 @@ Now the SP knows who the user is, and can process that user accordingly (see Fig
  
 SAML2.0 protocol allows also to implement authentication service discovery mechanisms. SAML2.0  defines a browser-based protocol 
 by which a centralized discovery service can provide a requesting service provider with the unique identifier of an 
-identity provider that can authenticate a principal. In this way 
+identity provider that can authenticate a principal.  
 
 
 \section{Details on OAuth}
 \subsection{Requirements}
-Services using OAuth authentication mechanisms SHALL do so according to the RFC6749 \citep{std:RFC6742}.
+Services using OAuth authentication mechanisms SHALL do so according to the RFC6749 \citep{std:RFC6749}.
 
 Interfaces using this mechanism SHALL be be registered with the security method 
 
@@ -291,7 +292,7 @@ OAuth introduces the notion of an `authorization token', a `refresh token' and A
 The `authorization' token states that the client application has the right to access services on the server  (see Fig.~\ref{fig:oauth}). 
 However, it does not supersede any access control decisions that the server-side application might make.
 
-OAuth is related to delegate credential from an application to another.
+OAuth protocol can be implemented  to delegate credential from an application to another.
 
 \section{Details on OpenID}
 \subsection{Requirements}
@@ -310,16 +311,16 @@ layer on top of the OAuth 2.0 protocol, which allows computing clients to verify
  performed by an authorization server, as well as to obtain basic profile information about the end-user in an interoperable and REST-like manner.'' \citep{std:openid}.
   
 \section{Conclusions}
-This document presents a list of  existing security standards, to implement when developing a service that requires authentication mechanism. The list includes the most frequently used standards at the time this document has been produced. 
+This document presents a list of existing security standards to implement when developing a service that requires authentication mechanism. The list includes the most frequently used standards at the time this document has been produced. 
 
 In this document we are presenting two types of  SSO protocols: "local" and "federated". 
 Local SSO  provides solutions for keeping a repository of usernames and passwords 
 that could be used transparently across several internal applications but it is local to one domain/service.
 
 Federated identity means linking and using the electronic identities a user has across several identity management systems.
-In simpler terms, a service does not necessarily need to obtain and store users? credentials in order to authenticate them. Instead, the service (or we application) can use an identity management system that is already storing a user?s electronic identity 
-to authenticate the user?given, of course, that the application trusts that identity management system.
-Federated identities are convenient for users, since they don?t have to keep a set of usernames and passwords for every single application that they use and for service providers that do not need to store and manage credential.
+In simpler terms, a service does not necessarily need to obtain and store users credentials in order to authenticate them. Instead, the service (or the application) can use an identity management system that is already storing a user's electronic identity 
+to authenticate the users given, of course, that the application trusts that identity management system.
+Federated identities are convenient for users, since they don't have to keep a set of usernames and passwords for every single application that they use and for service providers that do not need to store and manage credentials.
 
 Local SSO is managed by  the following protocols: HTTP Basic Authentication,  Transport Layer Security (TLS) with passwords, and cookies
 OAuth, SAML, OpenID and Transport Layer Security (TLS) with client certificates (thanks to the CA trust) are protocol that 
@@ -329,7 +330,7 @@ The choice the authentication method to use is related to the project/service re
 a local authentication based on Transport Layer Security (TLS) with passwords, that allow a reasonable security 
 framework for exchanging authentication tokens. 
 
-More complex projects/sevices that needs to offer resources to a large distributed communities should prefer federated identities. 
+More complex projects/services that need to offer resources to a large distributed communities should prefer federated identities. 
 For example SAML2.0 is the protocol used to build the EduGain World wide identity federation  for education and research.
 
 
