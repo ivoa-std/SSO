@@ -7,7 +7,7 @@ DOCNAME = SSOAuthMech
 DOCVERSION = 2.0
 
 # Publication date, ISO format; update manually for "releases"
-DOCDATE = 2016-09-30
+DOCDATE = 2016-10-20
 
 # What is it you're writing: NOTE, WD, PR, or REC
 DOCTYPE = PR
