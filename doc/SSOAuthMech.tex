@@ -83,7 +83,7 @@ authentication mechanism using the values stated in the sections below.
 Services registered without the metadata alluded to above need not
 support any authentication mechanism. If they do require authentication,
 they MAY use either the IVOA-standard mechanisms or others that are not
-IVOA standards.
+IVOA standards, but they MUST specify a  \xmlel{SecurityMethod} element.
 
 \subsection{Commentary}
 The IVOA SSO profile allows the development of a ''realm'' of interoperable services and clients. 
@@ -204,7 +204,7 @@ Services implementing TLS MUST support certificate chains including proxy certif
 
 Interfaces using this mechanism SHALL be  registered with the security method 
 
-\texttt{ivo://ivoa.net/sso\#tls-with-certificate}.
+\texttt{ivo://ivoa.net/sso\#tls-with-certificate}
 
 \subsection{Commentary}
 When Mutual Certificate Authentication is configured for REST services, both, the client and the service perform 
@@ -219,7 +219,7 @@ not as part of the mechanism itself.
 
 Interfaces using this mechanism SHALL  be registered with the security method 
 
-\texttt{ivo://ivoa.net/sso\#tls-with-password}.
+\texttt{ivo://ivoa.net/sso\#tls-with-password}
 
 \subsection{Commentary}
 ``HTTP basic authentication'' passes the user-name and password in the HTTP headers, 
@@ -234,7 +234,7 @@ The way to manage  cookies for authentication is described in RFC6265 \citep{std
 
 Interfaces using this mechanism SHALL  be registered with the security method 
 
-\texttt{ivo://ivoa.net/sso\#cookie}.
+\texttt{ivo://ivoa.net/sso\#cookie}
 
 
 \subsection{Commentary}
@@ -257,7 +257,7 @@ SAML includes protocols and protocol bindings and security \citep{std:SAMLB}.
 
 Interfaces using this mechanism SHALL  be registered with the security method 
 
-\texttt{ivo://ivoa.net/sso\#saml2.0}.
+\texttt{ivo://ivoa.net/sso\#saml2.0}
 
 
 \subsection{Commentary}
@@ -280,7 +280,7 @@ Now the SP knows who the user is, and can process that user accordingly (see Fig
  
 SAML2.0 protocol allows also to implement authentication service discovery mechanisms. SAML2.0  defines a browser-based protocol 
 by which a centralized discovery service can provide a requesting service provider with the unique identifier of an 
-identity provider that can authenticate a principal.  
+IdP that can authenticate the user.  
 
 
 \section{Details on OAuth}
@@ -289,7 +289,7 @@ Services using OAuth authentication mechanisms SHALL do so according to the RFC6
 
 Interfaces using this mechanism SHALL  be registered with the security method 
 
-\texttt{ivo://ivoa.net/sso\#OAuth}.
+\texttt{ivo://ivoa.net/sso\#OAuth}
 
 
 \subsection{Commentary}
@@ -309,7 +309,7 @@ Services using OpenID authentication mechanisms SHALL do so according to the Ope
   
 Interfaces using this mechanism SHALL  be registered with the security method 
 
-\texttt{ivo://ivoa.net/sso\#OpenID}.
+\texttt{ivo://ivoa.net/sso\#OpenID}
 
   
 \subsection{Commentary}
