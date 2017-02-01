@@ -136,8 +136,20 @@ The following authentication mechanisms are approved for use in the SSO profile.
 \end{itemize}
 
 The mechanism is associated with the interface provided by the service and registered in the IVOA registry.
- 
-\begin{table}[th] \begin{tabular}{p{0.45\textwidth}p{0.64\textwidth}} \sptablerule
+
+Services that are registered with a IVOA registry as having a {\em WebService} type interface (as 
+described in the VOResource document) SHALL support OAuth, or SHALL support cookies or SHALL support TLS with client 
+certificates or SHALL require no authentication.
+Interfaces by which a user logs in to the SSO system SHALL support either 
+TLS with client certificates, or TLS with passwords, or SAML or a combination of  them.
+
+\subsection{List of approved authentication mechanisms and the corresponding securityMethod}
+
+The approved authentication mechanisms and the corresponding \xmlel{securityMethod}  to implement is
+listed in the table below.
+
+\begin{table}[th] 
+\begin{tabular}{p{0.45\textwidth}p{0.64\textwidth}} \sptablerule
 \textbf{SSO mechanism}&\textbf{\xmlel{<securityMethod>}}\\ \sptablerule
  HTTP Basic Authentication &
 \xmlel{ivo://ivoa.net/sso\#BasicAA}\\
@@ -150,14 +162,8 @@ OpenID &  \xmlel{ivo://ivoa.net/sso\#OpenID} \\
 \sptablerule
 \label{table:SMtable}
 \end{tabular}
-\caption{List of approved authentication mechanisms and the corresponding securityMethod}
 \end{table}
 
-Services that are registered with a IVOA registry as having a {\em WebService} type interface (as 
-described in the VOResource document) SHALL support OAuth, or SHALL support cookies or SHALL support TLS with client 
-certificates or SHALL require no authentication.
-Interfaces by which a user logs in to the SSO system SHALL support either 
-TLS with client certificates, or TLS with passwords, or SAML or a combination of  them
 
 \section{HTTP Basic Authentication}
 \subsection{Requirements}
@@ -429,7 +435,7 @@ elementFormDefault="unqualified" attributeFormDefault="unqualified" version="1.0
 \subsection {Changes from v. 1.01}
 \begin{itemize}
 \item We remove all the references to SOAP as deprecated from IVOA
-\item We add new security methods ad relative discussion sessions: OpenID, SAML, Cookies, HTTP basic authentication
+\item We add new security methods and relative discussion sessions: OpenID, SAML, Cookies, HTTP basic authentication
 \end{itemize}
 
 
