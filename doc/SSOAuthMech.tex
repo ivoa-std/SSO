@@ -12,7 +12,10 @@
 \ivoagroup{http://www.ivoa.net/twiki/bin/view/IVOA/IvoaGridAndWebServices}
 
 %\author[????URL????]{http://www.ivoa.net/twiki/bin/view/IVOA/IvoaGridAndWebServices}
-\author{Giuliano Taffoni,  Andr\'e Schaaff, Guy Rixon, Brian Major}
+\author{Giuliano Taffoni} 
+\author{Andr\'e Schaaff}
+\author{Guy Rixon}
+\author{Brian Major}
 
 \editor{Giuliano Taffoni}
 
@@ -86,13 +89,13 @@ they MAY use either the IVOA-standard mechanisms or others that are not
 IVOA standards, but they MUST specify a  \xmlel{SecurityMethod} element.
 
 \subsection{Commentary}
-The IVOA SSO profile allows the development of a ''realm'' of interoperable services and clients. 
+The IVOA SSO profile allows the development of a ``realm'' of interoperable services and clients. 
 Service providers opt in to this realm by implementing this current standard and by registering accordingly in the IVOA registry. 
 This allows clients to discover a secured service through the registry and to be able to use it without 
 being customized for the details of the specific service.
 
 Services within the Virtual Observatory that are not intended to be widely interoperable need not opt in to the SSO realm. 
-In particular, ''private'' services, accessed by web browsers and protected by passwords, are allowed. 
+In particular, ``private'' services, accessed by web browsers and protected by passwords, are allowed. 
 However, these private services SHOULD be reworked to follow the IVOA standard if they are later promoted to a wider audience.
 
 An example of a registration for a secured interface follows.
@@ -181,7 +184,7 @@ HTTP depends on the security properties of the underlying transport-  or session
 confidential transmission of   header fields. Connection secured with TLS are RECOMMENDED prior to exchanging any credentials.
 
 The ``HTTP basic authentication'' SHOULD be used with particular attention as sensible
-informations (password) are sent over the wire in base64 encoding (which can be easily converted to plaintext) exposing
+information (password) are sent over the wire in base64 encoding (which can be easily converted to plaintext) exposing
 the user to the possibility her credentials to be stolen.
 
 \section{Details of TLS}
@@ -323,7 +326,8 @@ layer on top of the OAuth 2.0 protocol, which allows computing clients to verify
 This document presents a list of security standards that may be implemented when developing a service that requires authentication.
 The list includes the most frequently used standards at the time this document has been produced. 
 
-In this document we are presenting two types of  SSO protocols: "local" and "federated". 
+In this document we are presenting two types of  SSO protocols:
+``local'' and ``federated''. 
 Local SSO  provides solutions for keeping a repository of user-names and passwords 
 that could be used transparently across several internal applications but it is local to one domain/service.
 
