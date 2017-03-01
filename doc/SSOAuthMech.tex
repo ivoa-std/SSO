@@ -32,7 +32,7 @@ Approved client-server authentication mechanisms are described for the IVOA sing
 \section*{Acknowledgments}
 
 This document derives from discussions among the Grid and Web Services working-group of IVOA. It is particularly informed by prototypes built by Matthew Graham (Caltech/US-NVO), Paul Harrison (ESO/EuroVO), David Morris (Cambridge/AstroGrid) and Raymond Plante (NCSA/US-NVO). The prior art for the use of proxy certificates comes from the Globus Alliance.
-This document has been developed with support from the National Science Foundation's Information Technology Research Program under Cooperative Agreement AST0122449 with The Johns Hopkins University, from the UK Particle Physics and Astronomy Research Council (PPARC) and from the Europena Commission's Sixth Framework Program via the Optical Infrared Coordination Network (OPTICON).
+This document has been developed with support from the National Science Foundation's Information Technology Research Program under Cooperative Agreement AST0122449 with The Johns Hopkins University, from the UK Particle Physics and Astronomy Research Council (PPARC) and from the European Commission's Sixth Framework Program via the Optical Infrared Coordination Network (OPTICON).
 
 
 \section*{Conformance-related definitions}
@@ -177,7 +177,7 @@ Interfaces using this mechanism SHALL be registered with the security method
 HTTP provides a simple challenge-response authentication framework that can be used by a server to challenge 
 a client request and by a   client to provide authentication information.
 The HTTP authentication framework does not define a single mechanism for maintaining the confidentiality of credentials. 
-HTTP depends on the security properties of the underlying transport-   or session-level connection to provide 
+HTTP depends on the security properties of the underlying transport-  or session-level connection to provide 
 confidential transmission of   header fields. Connection secured with TLS are RECOMMENDED prior to exchanging any credentials.
 
 The ``HTTP basic authentication'' SHOULD be used with particular attention as sensible
@@ -207,7 +207,7 @@ Interfaces using this mechanism SHALL be  registered with the security method
 \texttt{ivo://ivoa.net/sso\#tls-with-certificate}
 
 \subsection{Commentary}
-When Mutual Certificate Authentication is configured for REST services, both, the client and the service perform 
+When Mutual Certificate Authentication is configured for REST services, both the client and the service perform 
 identity verification or authentication through X.509 certificates. 
 
 The client authenticates the service during the initial SSL handshake, when the server sends the client a certificate to authenticate itself.
@@ -269,7 +269,7 @@ or Relying Party (``RP'').
 A user attempts to access an application with the Service Provider. 
 The SP needs to establish the identity of this user, and so sends an authentication request to the Identity Provider. 
 
-The user authenticate with the IdP (IdP is taking care of the authentication mechanisms and protocols e.g. Kerberos, ldap etc.) so the IdP can send back an `Assertion' to the SP. 
+The user authenticates with the IdP (IdP is taking care of the authentication mechanisms and protocols e.g. Kerberos, ldap etc.) so the IdP can send back an `Assertion' to the SP. 
 Now the SP knows who the user is, and can process that user accordingly (see Fig.~\ref{fig:saml}).
 \begin{figure}
 \centering
@@ -332,15 +332,15 @@ In simpler terms, a service does not necessarily need to obtain and store users 
 to authenticate the users given, of course, that the application trusts that identity management system.
 Federated identities are convenient for users, since they don't have to keep a set of user-names and passwords for every single application that they use and for service providers that do not need to store and manage credentials.
 
-Local SSO is managed by  the following protocols: HTTP Basic Authentication,  Transport Layer Security (TLS) with passwords, and cookies
+Local SSO is managed by  the following protocols: HTTP Basic Authentication,  Transport Layer Security (TLS) with passwords,  cookies
 OAuth, SAML, OpenID and Transport Layer Security (TLS) with client certificates (thanks to the CA trust) are protocol that 
 allow to implement  federated SSO. 
 
-The choice the authentication method to use is related to the project/service requirements, we suggest at least to implement 
-a local authentication based on Transport Layer Security (TLS) with passwords, that allow a reasonable security 
+The choice the authentication  to use is related to the project/service requirements, we suggest at least to implement 
+a local authentication based on Transport Layer Security (TLS) with passwords, that allows a reasonable security 
 framework for exchanging authentication tokens. 
 
-More complex projects/services that need to offer resources to a large distributed communities should prefer federated identities. 
+More complex projects/services that need to offer resources to  large  communities should prefer federated identities. 
 For example SAML2.0 is the protocol used to build the EduGain World wide identity federation  for education and research.
 
 
