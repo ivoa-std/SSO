@@ -34,8 +34,9 @@ Approved client-server authentication mechanisms are described for the IVOA sing
 
 \section*{Acknowledgments}
 
-This document derives from discussions among the Grid and Web Services working-group of IVOA. It is particularly informed by prototypes built by Matthew Graham (Caltech/US-NVO), Paul Harrison (ESO/EuroVO), David Morris (Cambridge/AstroGrid) and Raymond Plante (NCSA/US-NVO). The prior art for the use of proxy certificates comes from the Globus Alliance.
-This document has been developed with support from the National Science Foundation's Information Technology Research Program under Cooperative Agreement AST0122449 with The Johns Hopkins University, from the UK Particle Physics and Astronomy Research Council (PPARC) and from the European Commission's Sixth Framework Program via the Optical Infrared Coordination Network (OPTICON).
+This document derives from discussions among the Grid and Web Services working-group of IVOA. It is particularly informed by prototypes built by Matthew Graham (Caltech/US-NVO), Paul Harrison (ESO/EuroVO), David Morris (Cambridge/AstroGrid), Raymond Plante (NCSA/US-NVO) Brian Major and  Donovan Patrick Dowler (CADC) and Giuliano Taffoni (INAF-VObs.it). 
+The prior art for the use of proxy certificates comes from the Globus Alliance. 
+This document has been developed with support from the National Science Foundation's Information Technology Research Program  with The Johns Hopkins University, from the UK Particle Physics and Astronomy Research Council (PPARC) and from the European Commission's Work programme FP7 via the  CoSADIE project and the H2020 via the ASTERICS project.
 
 
 \section*{Conformance-related definitions}
@@ -180,7 +181,7 @@ Interfaces using this mechanism SHALL be registered with the security method
 HTTP provides a simple challenge-response authentication framework that can be used by a server to challenge 
 a client request and by a   client to provide authentication information.
 The HTTP authentication framework does not define a single mechanism for maintaining the confidentiality of credentials. 
-HTTP depends on the security properties of the underlying transport-  or session-level connection to provide 
+HTTP depends on the security properties of the underlying transport  or session-level connection to provide 
 confidential transmission of   header fields. Connection secured with TLS are RECOMMENDED prior to exchanging any credentials.
 
 The ``HTTP basic authentication'' SHOULD be used with particular attention as sensible
