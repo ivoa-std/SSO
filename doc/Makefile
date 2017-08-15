@@ -7,10 +7,10 @@ DOCNAME = SSOAuthMech
 DOCVERSION = 2.0
 
 # Publication date, ISO format; update manually for "releases"
-DOCDATE = 2017-04-11
+DOCDATE = 2017-05-24
 
 # What is it you're writing: NOTE, WD, PR, or REC
-DOCTYPE = PR
+DOCTYPE = REC
 
 # Source files for the TeX document (but the main file must always
 # be called $(DOCNAME).tex
