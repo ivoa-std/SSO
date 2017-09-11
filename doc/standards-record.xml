@@ -22,9 +22,22 @@ RofR; please fix @updated  and data[@representative] after REC publication -->
   <curation>
     <publisher>IVOA</publisher>
     <creator>
-      <name>IVOA Grid And Web Services WG</name>
+      <name>Taffoni, G.</name>
       <logo>http://www.ivoa.net/icons/ivoa_logo_small.jpg</logo>
     </creator>
+
+    <creator>
+      <name>Schaaff, A.</name>
+    </creator>
+
+    <creator>
+      <name>Rixon, G.</name>
+    </creator>
+
+    <creator>
+      <name>Major, B.</name>
+    </creator>
+
     <date role="representative">2016-01-01</date>
     <version>1.0</version>
     <contact>
