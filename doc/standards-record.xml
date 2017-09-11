@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
-<!-- The resource record for SSOAuthMech intended to be uploaded into the
+<!-- The resource record for the SSO document intended to be uploaded into the
 RofR; please fix @updated  and data[@representative] after REC publication -->
 <ri:Resource 
 	xsi:type="vstd:Standard" 
 	created="2015-12-04T11:39:00" 
-	updated="2015-12-04T11:39:00" 
+	updated="2017-19-11T09:21:00" 
 	status="active"
 	xmlns:vr="http://www.ivoa.net/xml/VOResource/v1.0" 
 	xmlns:vstd="http://www.ivoa.net/xml/StandardsRegExt/v1.0" 
@@ -18,7 +18,7 @@ RofR; please fix @updated  and data[@representative] after REC publication -->
 		http://www.ivoa.net/xml/VOResource/v1.0">
 
   <title>IVOA Single-Sign-On Profile: Authentication Mechanisms</title>
-  <identifier>ivo://ivoa.net/std/SSOAuthMech</identifier>
+  <identifier>ivo://ivoa.net/std/sso</identifier>
   <curation>
     <publisher>IVOA</publisher>
     <creator>
@@ -38,7 +38,7 @@ RofR; please fix @updated  and data[@representative] after REC publication -->
       <name>Major, B.</name>
     </creator>
 
-    <date role="representative">2016-01-01</date>
+    <date role="representative">2017-05-24</date>
     <version>1.0</version>
     <contact>
       <name>IVOA GWS WG</name>
@@ -60,12 +60,27 @@ RofR; please fix @updated  and data[@representative] after REC publication -->
   <endorsedVersion status="rec">2.0</endorsedVersion>
 
   <key>
+    <name>BasicAA</name>
+    <description>
+			Service supports authentication with HTTP basic authentication 
+			(RFC2617, sect. 4 of the Recommendation).
+		</description>
+  </key>
+  <key>
     <name>tls-with-password</name>
     <description>
 		Service supports authentication with a password transmitted through TLS 
 		as per section 7 of the Recommendation.
 		</description>
   </key>
+  <key>
+    <name>tls-with-password</name>
+    <description>
+		Service supports authentication with a password transmitted through TLS 
+		as per section 7 of the Recommendation.
+		</description>
+  </key>
+
   <key>
     <name>tls-with-certificate</name>
     <description>
