@@ -4,7 +4,7 @@ RofR; please fix @updated  and data[@representative] after REC publication -->
 <ri:Resource 
 	xsi:type="vstd:Standard" 
 	created="2015-12-04T11:39:00" 
-	updated="2017-19-11T09:21:00" 
+	updated="2018-02-21T07:20:00" 
 	status="active"
 	xmlns:vr="http://www.ivoa.net/xml/VOResource/v1.0" 
 	xmlns:vstd="http://www.ivoa.net/xml/StandardsRegExt/v1.0" 
@@ -39,7 +39,8 @@ RofR; please fix @updated  and data[@representative] after REC publication -->
     </creator>
 
     <date role="representative">2017-05-24</date>
-    <version>1.0</version>
+    <date role="updated">2017-05-24</date>
+    <version>2.0</version>
     <contact>
       <name>IVOA GWS WG</name>
       <email>grid@ivoa.net</email>
@@ -48,12 +49,13 @@ RofR; please fix @updated  and data[@representative] after REC publication -->
   <content>
     <subject>virtual observatory</subject>
     <description>
-			IVOA single-sign-on profile: No Authentication; HTTP Basic Authenti-
-			cation; TLS with passwords; TLS with client certificates; Cookies; Open
-			Authentication; Security Assertion Markup Language; OpenID. Normative
-			rules are given for the implementation of these mechanisms, mainly by
-			ref- erence to pre-existing standards. The Authorization mechanisms are
-			out of the scope of this document.
+    	Approved client-server authentication mechanisms are described for the
+    	IVOA single-sign-on profile: No Authentication; HTTP Basic
+    	Authentication; TLS with passwords; TLS with client certificates;
+    	Cookies; Open Authentication; Security Assertion Markup Language; OpenID.
+    	Normative rules are given for the implementation of these mechanisms,
+    	mainly by reference to pre-existing standards. The Authorization
+    	mechanisms are out of the scope of this document.
     </description>
     <referenceURL>http://www.ivoa.net/Documents/SSOAuthMech</referenceURL>
   </content>
