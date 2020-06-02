@@ -1,4 +1,6 @@
-# doc-template
+![SSO version](https://img.shields.io/badge/SSO-REC--2.0-yellow)
+
+# Single-Sign-On
 
 ## What is it?
 
