@@ -74,7 +74,7 @@ This document is essentially a {\em profile} against existing security standards
 \end{figure}
 
 Fig.~\ref{fig:archdiag} shows the role this document plays within the
-IVOA architecture \citep{note:VOARCH}.
+IVOA architecture \citep{2010ivoa.rept.1123A}.
 
 
 \section{Scope of this standard}
@@ -82,7 +82,7 @@ IVOA architecture \citep{note:VOARCH}.
 When a service is registered in an IVOA registry, that service's resource document MAY include metadata expressing conformance to one or more of the authentication mechanisms approved in the IVOA SSO profile. Such a service MUST implement those mechanisms as described in this document, and clients of the service MUST participate in the mechanism when calling the service. If a service does not provide any SSO specification it is assumed that no authentication is required.
 The registration of the service interface SHALL contain an XML element
 of type \xmlel{SecurityMethod} as specified in the XML schema for
-VOResource \citep{std:VOR}. The value of this element distinguishes the
+VOResource \citep{2018ivoa.spec.0625P}. The value of this element distinguishes the
 authentication mechanism using the values stated in the sections below.
 Services registered without the metadata alluded to above need not
 support any authentication mechanism. If they do require authentication,
@@ -444,7 +444,7 @@ elementFormDefault="unqualified" attributeFormDefault="unqualified" version="1.0
 \end{itemize}
 
 
-\bibliography{ivoatex/ivoabib,SSO}
+\bibliography{ivoatex/ivoabib,ivoatex/docrepo,SSO}
 
 
 \end{document}
