@@ -372,7 +372,15 @@ IdP that can authenticate the user.
 \subsection{Requirements}
 Services using OAuth authentication mechanisms SHALL do so according to the RFC6749 \citep{std:RFC6749}.
 
-Interfaces using this mechanism SHALL  be registered with the security method
+Clients perform authentication with OAuth Bearer tokens using the \emph{authorization} header. For example:
+
+\begin{verbatim}
+curl -H 'authorization: Bearer {token}' https://example.org/tap
+< http/1.1 200
+< x-vo-authenticated: {username}
+\end{verbatim}
+
+Interfaces using this mechanism SHALL be registered with the security method
 
 \texttt{ivo://ivoa.net/sso\#OAuth}
 
