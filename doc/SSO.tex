@@ -279,10 +279,30 @@ The client authenticates the service during the initial SSL handshake, when the 
 
 \section{Details of TLS-with-password}
 \subsection{Requirements}
-The user-name and password SHALL be passed in the message protected by the TLS mechanism,
-not as part of the mechanism itself.
+The username and password SHALL be passed in the message protected by the TLS mechanism, and, with a valid password credential, a Bearer token SHALL be returned, also protected by the TLS mechanism.
 
-Interfaces using this mechanism SHALL  be registered with the security method
+The HTTP POST form parameters to be used in tls-with-password are:
+\paragraph{username} - The username to use for login
+\paragraph{password} - The password to use for login
+
+When valid credentials (username and password) are used, the service responses with a 200 response code and uses the \emph{x-vo-bearer} response header to return an OAuth2 Bearer token.  For example:
+
+\begin{verbatim}
+curl -d 'username={userid}' -d 'password={password}' https://example.org/login
+< http/1.1 200
+< x-vo-authenticated: {userid}
+< x-vo-bearer: {token}
+\end{verbatim}
+
+When invalid credentials are used, the service resonsds with a 401 response code and optional message in the response body. For example,
+
+\begin{verbatim}
+curl -d 'username={userid}' -d 'password={password}' https://example.org/login
+< http/1.1 401
+invalid username or password
+\end{verbatim}
+
+Interfaces using this mechanism SHALL be registered with the security method
 
 \texttt{ivo://ivoa.net/sso\#tls-with-password}
 
