@@ -117,11 +117,30 @@ The list of challenges and their meanings that are recognized by the IVOA are de
 
 \subsection{Bootstrapping}
 
-TBD: describe problem and how /capabilities can be used.
+How does a client start and how does a service signal that there is \emph{optional}, \emph{required}, or \emph{no} authentication? First, it must be noted that the above www-authenticate challenges can be returned in any response, but typically in 200, 401, or 403. And it must be emphasized that any endpoint can respond with those challenges if something changes. (For example, a token expires, or an attempt to access a protected resource is made.)
 
+For clients to initially find the level of authentication (to 'bootstrap'), they can make anonymous HTTP GET or HTTP HEAD requests to the service's /capabilities endpoint. (See VO Support Interfaces (VOSI) (\citep{2017ivoa.spec.0524G}.) Responses from this call to /capabilities include:
+
+\begin{itemize}
+\item{\emph{200}} with no www-authenticate headers: anonymous access only (no authentication)
+\item{\emph{200}} with www-authenticate headers: authentication optional
+\item{\emph{401}} with www-authenticate headers: authentication required
+\end{itemize}
+
+[Editor's note: two changes to VOSI are required: 1) VOSI augmented to require http HEAD support for /capabilities endpoints, and 2) Modify VOSI to allow /capabilities to respond with 401 (or 403) (also affects TAP 1.1 sec 2; & others?)]
+
+\subsection{Checking Authentication}
+
+Clients can also check current credentials with an HTTP HEAD call to /capabilities and then look for the header \emph{x-vo-authenticated} in the response. If present, it means that the service recognized it as an authenticated call.  The value of this header should identify the user, such as the user's username, or X.509 distinguished name.  The scope of the uniqueness of this value is undefined.
+
+Services may choose to include the x-vo-authenticated header in all requests (not just to /capabilities) made where user authentication was successful.
+
+\subsection{SecurityMethod}
+
+[Editor's note: Should this section remain?]
 
 When a service is registered in an IVOA registry, that service's resource document MAY include metadata expressing conformance to one or more of the authentication mechanisms approved in the IVOA SSO profile. Such a service MUST implement those mechanisms as described in this document, and clients of the service MUST participate in the mechanism when calling the service. If a service does not provide any SSO specification it is assumed that no authentication is required.
-The registration of the service interface SHALL contain an XML element
+The registration of the service interface MAY contain an XML element
 of type \xmlel{SecurityMethod} as specified in the XML schema for
 VOResource \citep{2018ivoa.spec.0625P}. The value of this element distinguishes the
 authentication mechanism using the values stated in the sections below.
