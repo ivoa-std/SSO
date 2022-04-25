@@ -119,7 +119,7 @@ The list of challenges and their meanings that are recognized by the IVOA are de
 
 How does a client start and how does a service signal that there is \emph{optional}, \emph{required}, or \emph{no} authentication? First, it must be noted that the above www-authenticate challenges can be returned in any response, but typically in 200, 401, or 403. And it must be emphasized that any endpoint can respond with those challenges if something changes. (For example, a token expires, or an attempt to access a protected resource is made.)
 
-For clients to initially find the level of authentication (to 'bootstrap'), they can make anonymous HTTP GET or HTTP HEAD requests to the service's /capabilities endpoint. (See VO Support Interfaces (VOSI) (\citep{2017ivoa.spec.0524G}.) Responses from this call to /capabilities include:
+For clients to initially find the level of authentication (to bootstrap), they can make anonymous HTTP GET or HTTP HEAD requests to the service's /capabilities endpoint. (See VO Support Interfaces (VOSI) (\citep{2017ivoa.spec.0524G}.) Responses from this call to /capabilities include:
 
 \begin{itemize}
 \item{\emph{200}} with no www-authenticate headers: anonymous access only (no authentication)
