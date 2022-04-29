@@ -10,7 +10,7 @@ DOCVERSION = 2.0
 DOCDATE = 2017-05-24
 
 # What is it you're writing: NOTE, WD, PR, or REC
-DOCTYPE = REC
+DOCTYPE = WD
 
 # Source files for the TeX document (but the main file must always
 # be called $(DOCNAME).tex
