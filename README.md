@@ -1,4 +1,4 @@
-![SSO version](https://img.shields.io/badge/SSO-REC--2.0-yellow)
+#![SSO version](https://img.shields.io/badge/SSO-REC--2.0-yellow)
 
 # Single-Sign-On
 
