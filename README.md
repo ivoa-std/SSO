@@ -2,6 +2,8 @@
 
 # Single-Sign-On
 
+[![PDF-Preview](https://img.shields.io/badge/Preview-PDF-blue)](../../releases/download/auto-pdf-preview/SSO-draft.pdf)
+
 ## What is it?
 
 SSO: **S**ingle **S**ign **O**n
