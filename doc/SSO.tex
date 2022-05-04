@@ -16,8 +16,10 @@
 \author{Andr\'e Schaaff}
 \author{Guy Rixon}
 \author{Brian Major}
+\author{Patrick Dowler}
+\author{Mark Taylor}
 
-\editor{Giuliano Taffoni}
+\editor{Sara Bertocco}
 
 \previousversion[http://www.ivoa.net/documents/SSO/20160930/index.html]{WD-20160930}
 \previousversion[http://www.ivoa.net/Documents/cover/SSOAuthMech-20080124.html]{REC-1.01}
@@ -55,7 +57,7 @@ infrastructure that enable VO applications.
 
 \section{Introduction}
 IVOA's single-sign-on architecture is a system in which users assign cryptographic credentials to user agents so that the agents may act with the user's identity and access rights. This standard describes how agents use those credentials to authenticate the user's identity in requests to services. This standard describes also the authentication mechanism of an application or a service making a call (on behalf of someone or something else) to an API or to another service.
-This document is essentially a {\em profile} against existing security standards; that is, it describes how an existing standard should be applied in an IVOA application to support single sign-on capabilities in the IVOA. In the following sections, we make specific references to details spelled out in these standards. For the purposes of validating against this standard, those referenced documents should be consulted for a full explanation of those details. Unfortunately, a reader that is unfamiliar with these external standards might find this specification confusing. To alleviate this problem, each major section is concluded by a Commentary subsection that provides some explanations of the detailed terms and concepts being referred to. The Commentary subsection may also provide recommended scenarios for how this specification might actually be realised. Note that the statements in the Commentary subsections are non-normative and should not be considered part of precise specification; nevertheless, they are indicative of the intended spirit of this document.
+This document describes how clients can discover and use authentication mechansims supported by a service, and how services advertise their support of those authentication mechanisms. Additionally, it conveys a {\em profile} of existing security standards; that is, it describes how an existing standard should be applied in an IVOA application to support single sign-on capabilities in the IVOA. In the following sections, we make specific references to details spelled out in these standards. For the purposes of validating against this standard, those referenced documents should be consulted for a full explanation of those details. Each major section is concluded by a Commentary subsection that provides some explanations of the detailed terms and concepts being referred to. The Commentary subsection may also provide recommended scenarios for how this specification might actually be realised. Note that the statements in the Commentary subsections are non-normative and should not be considered part of precise specification; nevertheless, they are indicative of the intended spirit of this document.
 
 \subsection{Role within the VO Architecture}
 
@@ -76,11 +78,69 @@ This document is essentially a {\em profile} against existing security standards
 Fig.~\ref{fig:archdiag} shows the role this document plays within the
 IVOA architecture \citep{2010ivoa.rept.1123A}.
 
+\section{Authentication Discovery}
 
-\section{Scope of this standard}
-\subsection{Requirements}
+Of the authentication mechanisms listed in section \ref{sec:authentication-mechanisms}, Authentication Mechanisms, some of them can be used exactly as their associated specifications dictate, including how to discover their support.  Some of them are intended to be used in an HTTP browser environment, and thus discovery is performed interactively by end users.  However, to support non-browser clients (standalone applications and command line tools), the follow procedures can be used to programmatically and interoperabily discover and use the associated authentication mechansim.  These procedures are extensions to the existing standards and are built upon HTTP standards themselves.
+
+\subsection{IVOA Challenges}
+
+Services that support one of the approved authentication mechanisms may advertise this through the use of \emph{www-authenticate} HTTP response headers, as defined by \citep{std:RFC7235}. The basic form of this header is:
+
+\begin{verbatim}
+www-authenticate: {auth-scheme} {scheme-specific-params}
+\end{verbatim}
+
+Where \emph{auth-scheme} is a reference to the authentication mechanism, and \emph{scheme-specific-params} conveys service-specific details on the use of the identified authentication mechansim.
+
+For example:
+
+\begin{verbatim}
+www-authenticate: ivoa_bearer standard_id="ivo://ivoa.net/sso#tls-with-password", access_url="https://example.org/login"
+\end{verbatim}
+
+As seen above, the \emph{scheme-specific-params} contains two standard parameters:
+
+\begin{itemize}
+\item{\emph{standard\_id}} - Describes how to obtain the credentials, and refers to one of the authentication mechanisms outlined in this document. Clients can obtain tokens according to the rules for that standard ID.
+\item{\emph{access\_url}} - Describes where to obtain the credentials.  It is the URL to use in the process.
+\end{itemize}
+
+The list of challenges and their meanings that are recognized by the IVOA are described below. Multiple chanllenges may be in a service's response. Clients can choose whichever one they understand or prefer.
+
+\textbf{Bearer} - The OAuth2 \citep{std:RFC6749} challenge for a Bearer token. It means one can autheticate with a Bearer token, but does not communicate the details of how such tokens can be obtained.
+
+\textbf{ivoa_bearer} - The ivoa_bearer challenge also means that one can authticate with an OAuth2 Bearer token, but will also include details on obtaining such tokens through the two parameters, \emph{standard\id}, and \emph{access\.
+
+\textbf{ivoa_x509} - The ivoa_x509 challenge is an indication that you can authenticate with an X.509 client certificate (including self-signed proxy certificates). There are two variants: one with the two parameters, \emph{standard\id}, and \emph{access\}, and one without. The one with parameters tells the client they can get an acceptable client cert via the described mechanism. (For sites that provide their own cert certificate authority.) The second, without params, says that the service accepts client certificates from external certificate authorities.
+
+\textbf{ivoa_cookie} - The ivoa_cookie challenge also means that one can authticate with an HTTP Cookie, and may also include details on obtaining cookies through the two parameters, \emph{standard\id}, and \emph{access\.
+
+\subsection{Bootstrapping}
+
+How does a client start and how does a service signal that there is \emph{optional}, \emph{required}, or \emph{no} authentication? First, it must be noted that the above www-authenticate challenges can be returned in any response, but typically in 200, 401, or 403. And it must be emphasized that any endpoint can respond with those challenges if something changes. (For example, a token expires, or an attempt to access a protected resource is made.)
+
+For clients to initially find the level of authentication (to bootstrap), they can make anonymous HTTP GET or HTTP HEAD requests to the service's /capabilities endpoint. (See VO Support Interfaces (VOSI) (\citep{2017ivoa.spec.0524G}.) Responses from this call to /capabilities include:
+
+\begin{itemize}
+\item{\emph{200}} with no www-authenticate headers: anonymous access only (no authentication)
+\item{\emph{200}} with www-authenticate headers: authentication optional
+\item{\emph{401}} with www-authenticate headers: authentication required
+\end{itemize}
+
+[Editor's note: two changes to VOSI are required: 1) VOSI augmented to require http HEAD support for /capabilities endpoints, and 2) Modify VOSI to allow /capabilities to respond with 401 (or 403) (also affects TAP 1.1 sec 2; & others?)]
+
+\subsection{Checking Authentication}
+
+Clients can also check current credentials with an HTTP HEAD call to /capabilities and then look for the header \emph{x-vo-authenticated} in the response. If present, it means that the service recognized it as an authenticated call.  The value of this header should identify the user, such as the user's username, or X.509 distinguished name.  The scope of the uniqueness of this value is undefined.
+
+Services may choose to include the x-vo-authenticated header in all requests (not just to /capabilities) made where user authentication was successful.
+
+\subsection{SecurityMethod}
+
+[Editor's note: Should this section remain?]
+
 When a service is registered in an IVOA registry, that service's resource document MAY include metadata expressing conformance to one or more of the authentication mechanisms approved in the IVOA SSO profile. Such a service MUST implement those mechanisms as described in this document, and clients of the service MUST participate in the mechanism when calling the service. If a service does not provide any SSO specification it is assumed that no authentication is required.
-The registration of the service interface SHALL contain an XML element
+The registration of the service interface MAY contain an XML element
 of type \xmlel{SecurityMethod} as specified in the XML schema for
 VOResource \citep{2018ivoa.spec.0625P}. The value of this element distinguishes the
 authentication mechanism using the values stated in the sections below.
@@ -125,7 +185,8 @@ the method to use.  In the example above, the preferred method to access
 the service is  {\em SAML}, then {\em cookies}, and finally, if the others are not available,
 {\em OpenID}.
 
-\section{Approved authentication mechanisms}
+\section{Authentication Mechanisms}
+\label{sec:authentication-mechanisms}
 
 The following authentication mechanisms are approved for use in the SSO profile.
 \begin{itemize}
@@ -218,10 +279,30 @@ The client authenticates the service during the initial SSL handshake, when the 
 
 \section{Details of TLS-with-password}
 \subsection{Requirements}
-The user-name and password SHALL be passed in the message protected by the TLS mechanism,
-not as part of the mechanism itself.
+The username and password SHALL be passed in the message protected by the TLS mechanism, and, with a valid password credential, a Bearer token SHALL be returned, also protected by the TLS mechanism.
 
-Interfaces using this mechanism SHALL  be registered with the security method
+The HTTP POST form parameters to be used in tls-with-password are:
+\paragraph{username} - The username to use for login
+\paragraph{password} - The password to use for login
+
+When valid credentials (username and password) are used, the service responses with a 200 response code and uses the \emph{x-vo-bearer} response header to return an OAuth2 Bearer token.  For example:
+
+\begin{verbatim}
+curl -d 'username={userid}' -d 'password={password}' https://example.org/login
+< http/1.1 200
+< x-vo-authenticated: {userid}
+< x-vo-bearer: {token}
+\end{verbatim}
+
+When invalid credentials are used, the service resonsds with a 401 response code and optional message in the response body. For example,
+
+\begin{verbatim}
+curl -d 'username={userid}' -d 'password={password}' https://example.org/login
+< http/1.1 401
+invalid username or password
+\end{verbatim}
+
+Interfaces using this mechanism SHALL be registered with the security method
 
 \texttt{ivo://ivoa.net/sso\#tls-with-password}
 
@@ -291,7 +372,15 @@ IdP that can authenticate the user.
 \subsection{Requirements}
 Services using OAuth authentication mechanisms SHALL do so according to the RFC6749 \citep{std:RFC6749}.
 
-Interfaces using this mechanism SHALL  be registered with the security method
+Clients perform authentication with OAuth Bearer tokens using the \emph{authorization} header. For example:
+
+\begin{verbatim}
+curl -H 'authorization: Bearer {token}' https://example.org/tap
+< http/1.1 200
+< x-vo-authenticated: {username}
+\end{verbatim}
+
+Interfaces using this mechanism SHALL be registered with the security method
 
 \texttt{ivo://ivoa.net/sso\#OAuth}
 
