@@ -1,6 +1,7 @@
-![SSO version](https://img.shields.io/badge/SSO-REC--2.0-yellow)
 
 # Single-Sign-On
+
+[![PDF-Preview](https://img.shields.io/badge/Preview-PDF-blue)](../../releases/download/auto-pdf-preview/SSO-draft.pdf)
 
 ## What is it?
 
