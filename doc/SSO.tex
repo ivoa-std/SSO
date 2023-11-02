@@ -167,25 +167,25 @@ response. Clients can choose whichever one they understand or prefer.
 token. It means one can autheticate with a Bearer token, but does not
 communicate the details of how such tokens can be obtained.
 
-\textbf{ivoa_bearer} - The ivoa_bearer challenge also means that one can
+\textbf{ivoa\_bearer} - The ivoa\_bearer challenge also means that one can
 authticate with an OAuth2 Bearer token, but will also include details on
-obtaining such tokens through the two parameters, \emph{standard\id},
-and \emph{access\.
+obtaining such tokens through the two parameters, \emph{standard\_id},
+and \emph{access\_url}.
 
-\textbf{ivoa_x509} - The ivoa_x509 challenge is an indication that you
+\textbf{ivoa\_x509} - The ivoa\_x509 challenge is an indication that you
 can authenticate with an X.509 client certificate (including self-signed
 proxy certificates). There are two variants: one with the two
-parameters, \emph{standard\id}, and \emph{access\}, and one without. The
+parameters, \emph{standard\_id}, and \emph{access\_url}, and one without. The
 one with parameters tells the client they can get an acceptable client
 cert via the described mechanism. (For sites that provide their own cert
 certificate authority.) The second, without params, says that the
 service accepts client certificates from external certificate
 authorities.
 
-\textbf{ivoa_cookie} - The ivoa_cookie challenge also means that one can
+\textbf{ivoa\_cookie} - The ivoa\_cookie challenge also means that one can
 authticate with an HTTP Cookie, and may also include details on
-obtaining cookies through the two parameters, \emph{standard\id}, and
-\emph{access\.
+obtaining cookies through the two parameters, \emph{standard\_id}, and
+\emph{access\_url}.
 
 \subsection{Bootstrapping}
 
@@ -212,7 +212,7 @@ include:
 [Editor's note: two changes to VOSI are required: 1) VOSI augmented to
 require http HEAD support for /capabilities endpoints, and 2) Modify
 VOSI to allow /capabilities to respond with 401 (or 403) (also affects
-TAP 1.1 sec 2; & others?)]
+TAP 1.1 sec 2; \&\ others?)]
 
 \subsection{Checking Authentication}
 
